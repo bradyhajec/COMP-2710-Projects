@@ -51,14 +51,19 @@ int main( ) {
         validFilename1 = true;
     }
 
-    //sets array size 1 and also returns contents, then closes file after they are stored in the array
+    //sets array size and also returns contents, then closes file after they are stored in the array
     iArray1_size = readfile(iArray1, inStream1);
     inStream1.close();
+
+    cout << "The list of " << iArray1_size << " numbers in file " << filename1 << " is: \n";
+    for (int i = 0; i < iArray1_size; i++) {
+        cout << iArray1[i] << "\n";
+    }
 
 
    bool validFilename2 = false;
     while (!validFilename2) {
-        cout << "Enter the second input file name:";
+        cout << "\nEnter the second input file name:";
         cin >> filename2;
         inStream2.open(filename2);
         if (inStream2.fail()) {
@@ -69,14 +74,20 @@ int main( ) {
     }
 
     iArray2_size = readfile(iArray2, inStream2);
+    inStream2.close();
+
+    cout << "The list of " << iArray2_size << " numbers in file " << filename2 << " is: \n";
+        for (int j = 0; j < iArray2_size; j++) {
+            cout << iArray2[j] << "\n";
+        }    
 
     //create the output array, must have constant value 
     int outputArray[MAX_SIZE];
 
-    sort(iArray1, iArray1_size, iArray2, iArray2_size, outputArray);
+    int outputArray_size = sort(iArray1, iArray1_size, iArray2, iArray2_size, outputArray);
 
-    inStream1.close();
-    inStream2.close();
+
+
     return 0; 
 
 }
@@ -90,7 +101,6 @@ int readfile(int inputArray[], ifstream& inStream)  {
     inStream >> inputArray[index];  //store first value
 
     while (!inStream.eof()) {  //this stops when we reach the end of the file
-        cout << inputArray[index] << endl; //input current value in array at this index
         index++;
         inStream >> inputArray[index];  //reads the line we are on and stores it the first index
     }
@@ -106,7 +116,7 @@ void merge(int array[], int left, int middle, int right) {
     int lsize = middle - left + 1;
     int rsize = right - middle;
 
-    int* tempLeft = new int[lsize];
+    int* tempLeft = new int[lsize];  //temporary arrays for sort compare
     int* tempRight = new int[rsize];
 
     for (int i = 0; i < lsize; i++) {
@@ -185,7 +195,9 @@ int sort(int inputArray1[], int inputArray1_size, int inputArray2[], int inputAr
         outputArray[inputArray1_size + j] = inputArray2[j];
     }
     
-    mergeSort(outputArray, 0, outputArray_size - 1);
+    mergeSort(outputArray, 0, outputArray_size - 1);  //sort the values in array
+
+    cout << "\nThe sorted list of " << outputArray_size << " numbers is: ";
 
     for (int k = 0; k < outputArray_size; k++) {
 
