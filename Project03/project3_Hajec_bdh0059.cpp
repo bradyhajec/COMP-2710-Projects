@@ -41,7 +41,7 @@ int main( ) {
     while (!validFilename1) {
         cout << "Enter the first input file name:";
         cin >> filename1;
-        inStream1.open(filename1);
+        inStream1.open(filename1.c_str());
         if (inStream1.fail()) {
             cout << "\nInput file opening failed. Please Enter an valid filename.\n" << endl;
             continue;
@@ -63,7 +63,7 @@ int main( ) {
     while (!validFilename2) {
         cout << "\nEnter the second input file name:";
         cin >> filename2;
-        inStream2.open(filename2);
+        inStream2.open(filename2.c_str());
         if (inStream2.fail()) {
             cout << "\nInput file opening failed. Please Enter an valid filename.\n" << endl;
             continue;
@@ -215,7 +215,7 @@ void writefile(int outputArray[], int outputArray_size) {
     cin >> outputFileName;
     
     //create and open a new text file with user selected name
-    ofstream MyFile(outputFileName); 
+    ofstream MyFile(outputFileName.c_str()); 
 
     //write to file
     for (int i = 0; i < outputArray_size; i++) {
