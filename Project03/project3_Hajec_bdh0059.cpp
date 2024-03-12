@@ -9,12 +9,9 @@
 using namespace std;
 
 //Constant Declaration
-const int MAX_SIZE = 100;
+const int MAX_SIZE = 100; 
 
 
-//Input: (1) Array storing data retrieved from the file (i.e., instream)
-// (2) input file stream object
-//Output: Size of array. Note: you need to use this parameter to control the array size.
 int readfile(int inputArray[], ifstream& instream);
 //final sorting of both arrays into outputArray
 int sort(int inputArray1[], int inputArray1_size, int inputArray2[], int inputArray2_size, int outputArray[]);
@@ -22,6 +19,7 @@ int sort(int inputArray1[], int inputArray1_size, int inputArray2[], int inputAr
 void writefile(int outputArray[], int outputArray_size);
 //the method will take one array and do a mergesort on it
 void mergeSort(int inputArray[], int right, int left);
+//works with mergesort
 void merge(int array[], int left, int middle, int right);
 
 int main( ) {
@@ -86,7 +84,7 @@ int main( ) {
 
     int outputArray_size = sort(iArray1, iArray1_size, iArray2, iArray2_size, outputArray);
 
-
+    writefile(outputArray, outputArray_size);
 
     return 0; 
 
@@ -210,6 +208,24 @@ int sort(int inputArray1[], int inputArray1_size, int inputArray2[], int inputAr
 
 
 void writefile(int outputArray[], int outputArray_size) {
+
+    string outputFileName;
+
+    cout << "\nEnter the output file name: ";
+    cin >> outputFileName;
+    
+    //create and open a new text file with user selected name
+    ofstream MyFile(outputFileName); 
+
+    //write to file
+    for (int i = 0; i < outputArray_size; i++) {
+        MyFile << outputArray[i] << "\n";
+    }
+
+    MyFile.close();
+
+    cout << "*** Please check the new file - " << outputFileName << " ***" << endl;
+    cout << "*** Goodbye. ***" << endl;
 
 }
 
